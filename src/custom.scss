@@ -1,0 +1,94 @@
+@import './variables.scss';
+
+@mixin adjust-to-move-shadow {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background-size: 600% 600%;
+    width: calc(100% + 6px);
+    height: calc(100% + 6px);
+    border-radius: 20px;
+    z-index: -1;
+    animation: animate 3s ease alternate infinite;
+}
+
+.jb-custom-shadow {
+  position: relative;
+  background: #010002;
+  border-radius: 20px;
+  &:after {
+    filter: blur(20px);
+  }
+}
+
+// Clase para el fondo que termina en naranja
+.jb-custom-shadow-pending {
+  @extend .jb-custom-shadow;
+  &:after,
+  &:before {
+    background: linear-gradient(45deg, #ff00ea, #ffd900, #ff0000);
+    @include adjust-to-move-shadow;
+  }
+}
+
+// Clase para el fondo que termina en verde
+.jb-custom-shadow-completed {
+  @extend .jb-custom-shadow;
+  &:after,
+  &:before {
+    background: linear-gradient(45deg, #00f3fb, #d9ff00, #2bff00);
+    @include adjust-to-move-shadow;
+  }
+}
+
+.jb-custom-input-transparent {
+  & > * {
+    background: transparent !important;
+    backdrop-filter: var(--blur-700) contrast(0.7) !important;
+    border: none !important;
+    box-shadow: 0 0 10px 5px var(--shadow-200) !important;
+  }
+}
+
+.jb-custom-b-shadow {
+  &-200 {
+    box-shadow: 0 0 10px 5px var(--shadow-200) !important;
+  }
+  &-400 {
+    box-shadow: 0 0 10px 5px var(--shadow-400) !important;
+  }
+}
+.jb-custom-bg {
+  &-pending {
+    color: var(--orange-500) !important;
+  }
+  &-completed {
+    color: var(--green-500) !important;
+  }
+}
+
+.jb-custom-size {
+    &-small{
+        width: 300px !important;
+    }
+}
+
+.jb-custom-f-sh {
+    text-shadow: 0 0 10px var(--shadow-500) !important;
+}
+
+
+// Animations
+
+@keyframes animate{
+    0%{
+        background-position: 0 50%;
+    }
+    50%{
+        background-position: 100% 50%;
+    }
+    100%{
+        background-position: 0% 50%;
+    }
+}

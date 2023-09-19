@@ -1,0 +1,15 @@
+<section class="task-template__container">
+  <main class="task-template__container-tool">
+    <aside class="task-template__container-tool-form bg-gray-100 {{ leftSize }}">
+      <h1
+        class="font-bold text-white text-7xl absolute top-0 left-0 uppercase jb-custom-f-sh jb-custom-input-transparent w-full text-center"
+      >
+        {{ title || '[Title]' }}
+      </h1>
+      <ng-content select="[leftContent]"></ng-content>
+    </aside>
+    <aside class="flex flex-1 h-full overflow-auto">
+      <ng-content select="[rightContent]"></ng-content>
+    </aside>
+  </main>
+</section>

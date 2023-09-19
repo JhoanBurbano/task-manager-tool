@@ -1,0 +1,51 @@
+<jb-page-template title="List" leftSize="short">
+  <form class="text-white font-bold" [formGroup]="taskFormGroup" (submit)="onSubmit()" leftContent>
+    <div class="flex flex-column gap-2">
+      <label htmlFor="username" class="font-bold">Search</label>
+      <input
+        pInputText
+        id="username"
+        aria-describedby="username-help"
+        placeholder="Type a keyword or tag"
+        formControlName="search"
+      />
+      <!-- <small class="font-light" id="username-help">Enter your username to reset your password.</small> -->
+    </div>
+    <div class="flex gap-2">
+      <div class="flex flex-column gap-2">
+        <label htmlFor="username">Order by</label>
+        <!-- <p-dropdown [options]="priorityOptions" optionLabel="name"></p-dropdown> -->
+        <p-dropdown [options]="sortByOptions" formControlName="sortBy" [group]="true" [showClear]="true" placeholder="OrderBy" (ngModelChange)="changeFilters('sort')">
+          <ng-template let-group pTemplate="group">
+            <div class="flex align-items-center">
+              <span>{{ group.label }}</span>
+            </div>
+          </ng-template>
+        </p-dropdown>
+        <!-- <small class="font-light" id="username-help">Enter your username to reset your password.</small> -->
+      </div>
+      <div class="flex flex-column gap-2">
+        <label htmlFor="username">Group by</label>
+        <p-dropdown [options]="groupByOptions" formControlName="groupBy" optionLabel="label" [showClear]="true" placeholder="GroupBy" (ngModelChange)="changeFilters('group')">
+        </p-dropdown>
+        <!-- <small class="font-light" id="username-help">Enter your username to reset your password.</small> -->
+      </div>
+    </div>
+    <div class="flex flex-column gap-2 mt-4">
+      <p-button label="Submit" [loading]="loading" type="submit"></p-button>
+    </div>
+  </form>
+  <span class="jb-custom-card-list w-full mx-4 mt-4" rightContent>
+    <jb-task
+      *ngFor="let task of tasks"
+      [title]="task.title"
+      [description]="task.description"
+      [dueDate]="task.dueDate"
+      [priority]="task.priority"
+      [completed]="task.completed"
+      [tags]="task.tags"
+      [archived]="task.archived"
+      [size]="'small'"
+    ></jb-task>
+  </span>
+</jb-page-template>

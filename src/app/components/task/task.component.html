@@ -1,0 +1,19 @@
+<p-card
+  [header]="title || '[Card Title]'"
+  styleClass="text-white flex flex-column justify-content-center gap-2 jb-custom-bg-{{
+    completed
+  }} jb-custom-shadow-{{ completed }} jb-custom-size-{{ size }}"
+  [subheader]="priority && date ? priority + ' || ' + date : '[Priority] || [Date]'"
+  [style]="{ width: '360px', background: 'var(--color-primary)', minHeight: '400px'}"
+>
+  <ng-template pTemplate="header"> </ng-template>
+  <p [style]="{ minHeight: '120px', wordBreak: 'break-word', hyphens: 'auto' }">
+    {{ description || '[Card Description]' }}
+  </p>
+  <ng-template pTemplate="footer">
+    <div class="card flex align-items-center gap-2 flex-wrap" *ngIf="tags.length">
+      <p-chip *ngFor="let tag of tags" [label]="tag"></p-chip>
+    </div>
+    <p-chip *ngIf="!tags.length" label="[tags here]"></p-chip>
+  </ng-template>
+</p-card>
