@@ -11,6 +11,6 @@
     <aside class="flex flex-1 h-full overflow-auto">
       <ng-content select="[rightContent]"></ng-content>
     </aside>
-    <p-button icon="pi pi-{{isClose ? 'check' : 'times'}}" (click)="toggleClose()" styleClass="p-button-rounded p-button-info fixed" [style]="{bottom: '75px', right: '5px', zIndex: 300}"></p-button>
+    <p-button icon="pi pi-{{isClose ? 'check' : 'times'}}" (click)="toggleClose()" styleClass="p-button-rounded p-button-info fixed" class="task-template__container-tool-toggle" [style]="{bottom: '75px', right: '5px', zIndex: 300}"></p-button>
   </main>
 </section>

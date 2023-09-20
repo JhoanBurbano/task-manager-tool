@@ -50,5 +50,11 @@
                 font-weight: 900 !important;
             }
         }
+        &-toggle {
+            display: none !important;
+            @media screen and (max-width: 768px) {
+                display: inline-flex !important;
+            }
+        }
     }
 }
