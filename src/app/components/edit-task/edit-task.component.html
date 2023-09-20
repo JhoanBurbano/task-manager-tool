@@ -1,0 +1,85 @@
+<jb-page-template [title]="'Edit'">
+    <form class="text-white font-bold" [formGroup]="taskFormGroup" (submit)="onSubmit()" leftContent>
+      <div class="flex flex-column gap-2">
+        <label htmlFor="username" class="font-bold">Title</label>
+        <input
+          pInputText
+          id="username"
+          aria-describedby="username-help"
+          placeholder="Type a title"
+          formControlName="title"
+          (keyup)="onTitleChange()"
+        />
+        <!-- <small class="font-light" id="username-help">Enter your username to reset your password.</small> -->
+      </div>
+      <div class="flex flex-column gap-2">
+        <label htmlFor="username">Description</label>
+        <textarea
+          pInputTextarea
+          placeholder="Type a description"
+          formControlName="description"
+          [autoResize]="true"
+        ></textarea>
+        <!-- <small class="font-light" id="username-help">Enter your username to reset your password.</small> -->
+      </div>
+      <div class="flex gap-2">
+        <div class="flex flex-column gap-2">
+          <label htmlFor="username">Due date</label>
+          <p-calendar
+            formControlName="dueDate"
+            placeholder="Select a date"
+            [required]="true"
+          ></p-calendar>
+          <!-- <small class="font-light" id="username-help">Enter your username to reset your password.</small> -->
+        </div>
+        <div class="flex flex-column gap-2">
+          <label htmlFor="username">Priority</label>
+          <p-dropdown
+            [options]="priorityOptions"
+            optionLabel="label"
+            formControlName="priority"
+            placeholder="Select a Priority"
+          ></p-dropdown>
+          <!-- <small class="font-light" id="username-help">Enter your username to reset your password.</small> -->
+        </div>
+      </div>
+      <div class="flex flex-column gap-2">
+        <label htmlFor="username">Status</label>
+        <p-selectButton
+          [options]="taskStateOptions"
+          optionLabel="label"
+          formControlName="completed"
+          optionValue="value"
+        ></p-selectButton>
+        <!-- <small class="font-light" id="username-help">Enter your username to reset your password.</small> -->
+      </div>
+      <div class="flex flex-column gap-2">
+        <label htmlFor="username">Tags</label>
+        <p-chips
+          formControlName="tags"
+          [max]="3"
+          [allowDuplicate]="false"
+          [separator]="','"
+          inputStyleClass="text-white"
+          styleClass="jb-custom-input-transparent"
+          (onAdd)="onChipAdd($event)"
+        ></p-chips>
+        <!-- <small class="font-light" id="username-help">Enter your username to reset your password.</small> -->
+      </div>
+      <div class="flex flex-column gap-2 mt-4">
+        <p-button label="Submit" [loading]="loading" type="submit"></p-button>
+      </div>
+    </form>
+    <span class="flex justify-content-center align-items-center w-full h-full" rightContent>
+      <jb-task
+        [title]="getControlValue('title')"
+        [description]="getControlValue('description')"
+        [dueDate]="getControlValue('dueDate')"
+        [priority]="getControlValue('priority')?.value"
+        [completed]="getControlValue('completed')"
+        [tags]="getControlValue('tags')"
+        [archived]="getControlValue('archived')"
+      ></jb-task>
+    </span>
+  </jb-page-template>
+  

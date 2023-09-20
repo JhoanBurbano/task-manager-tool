@@ -1,4 +1,4 @@
-<jb-page-template title="List" leftSize="short">
+<jb-page-template [title]="'List'" leftSize="short">
   <form class="text-white font-bold" [formGroup]="taskFormGroup" (submit)="onSubmit()" leftContent>
     <div class="flex flex-column gap-2">
       <label htmlFor="username" class="font-bold">Search</label>
@@ -8,6 +8,7 @@
         aria-describedby="username-help"
         placeholder="Type a keyword or tag"
         formControlName="search"
+        (keyup)="changeFilters('search')"
       />
       <!-- <small class="font-light" id="username-help">Enter your username to reset your password.</small> -->
     </div>
@@ -15,7 +16,14 @@
       <div class="flex flex-column gap-2">
         <label htmlFor="username">Order by</label>
         <!-- <p-dropdown [options]="priorityOptions" optionLabel="name"></p-dropdown> -->
-        <p-dropdown [options]="sortByOptions" formControlName="sortBy" [group]="true" [showClear]="true" placeholder="OrderBy" (ngModelChange)="changeFilters('sort')">
+        <p-dropdown
+          [options]="sortByOptions"
+          formControlName="sortBy"
+          [group]="true"
+          [showClear]="true"
+          placeholder="OrderBy"
+          (ngModelChange)="changeFilters('sort')"
+        >
           <ng-template let-group pTemplate="group">
             <div class="flex align-items-center">
               <span>{{ group.label }}</span>
@@ -26,7 +34,14 @@
       </div>
       <div class="flex flex-column gap-2">
         <label htmlFor="username">Group by</label>
-        <p-dropdown [options]="groupByOptions" formControlName="groupBy" optionLabel="label" [showClear]="true" placeholder="GroupBy" (ngModelChange)="changeFilters('group')">
+        <p-dropdown
+          [options]="groupByOptions"
+          formControlName="groupBy"
+          optionLabel="label"
+          [showClear]="true"
+          placeholder="GroupBy"
+          (ngModelChange)="changeFilters('group')"
+        >
         </p-dropdown>
         <!-- <small class="font-light" id="username-help">Enter your username to reset your password.</small> -->
       </div>
@@ -46,6 +61,8 @@
       [tags]="task.tags"
       [archived]="task.archived"
       [size]="'small'"
+      [showControls]="true"
+      (action)="onAction($event, task.id)"
     ></jb-task>
   </span>
 </jb-page-template>

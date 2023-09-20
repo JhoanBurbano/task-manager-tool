@@ -2,16 +2,23 @@
   styleClass="text-white flex flex-column justify-content-center gap-2 jb-custom-text-{{
     completed
   }} jb-custom-shadow-{{ completed }} jb-custom-size-{{ size }}"
-  [style]="{ width: '360px', background: 'var(--color-primary)', minHeight: '400px'}"
+  [style]="{ width: '360px', background: 'var(--color-primary)', minHeight: '400px', position: 'relative' }"
 >
   <ng-template pTemplate="title">
-    <p  [style]="{ wordBreak: 'break-word', hyphens: 'auto' }">
-      {{capitalizeAll(title) || '[Card Title]'}}
+    <p [style]="{ wordBreak: 'break-word', hyphens: 'auto' }">
+      {{ capitalizeAll(title) || '[Card Title]' }}
     </p>
   </ng-template>
   <ng-template pTemplate="subtitle">
-    <span class="flex ">
-      <span class="mr-1 border-round px-2 text-gray-900 jb-custom-bg-{{completed}}-{{priority.toLowerCase() || 'none'}}">{{priority || '[Priority] '}}</span> <p>||</p> <p class="ml-1 border-round px-2 bg-gray-300 text-gray-900">{{date || '[Date]'}}</p>
+    <span class="flex">
+      <span
+        class="mr-1 border-round px-2 text-gray-900 jb-custom-bg-{{ completed }}-{{
+          priority.toLowerCase() || 'none'
+        }}"
+        >{{ priority || '[Priority] ' }}</span
+      >
+      <p>||</p>
+      <p class="ml-1 border-round px-2 bg-gray-300 text-gray-900">{{ date || '[Date]' }}</p>
     </span>
   </ng-template>
   <p [style]="{ minHeight: '120px', wordBreak: 'break-word', hyphens: 'auto' }">
@@ -22,5 +29,25 @@
       <p-chip *ngFor="let tag of tags" [label]="tag"></p-chip>
     </div>
     <p-chip *ngIf="!tags.length" label="[tags here]"></p-chip>
+    <div
+      class="flex justify-content-center align-content-center mt-2 absolute bottom-0 left-0 w-full jb-custom-grad-{{hover}} border-round-bottom"
+      *ngIf="showControls"
+      
+    >
+      <p-button
+        icon="pi pi-times"
+        styleClass="p-button-rounded p-button-danger p-button-text p-button-sm"
+        [style]="{ height: '35px', width: '35px' }"
+        (mouseenter)="toggleHover('red')"
+        (click)="emitEvent(ActionsTask.DELETE)"
+      ></p-button>
+      <p-button
+        icon="pi pi-pencil"
+        styleClass="p-button-rounded p-button-warning p-button-text p-button-sm"
+        [style]="{ height: '35px', width: '35px' }"
+        (mouseenter)="toggleHover('yellow')"
+        (click)="emitEvent(ActionsTask.EDIT)"
+      ></p-button>
+    </div>
   </ng-template>
 </p-card>

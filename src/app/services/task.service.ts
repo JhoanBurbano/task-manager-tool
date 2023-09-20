@@ -2,34 +2,40 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { IGetTaskFiltersParams, Task } from '../interfaces';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TaskService {
   private url = environment.apiUrl;
-  constructor(private http: HttpClient) {}
-
-getTasks({ search, sort, group }: IGetTaskFiltersParams): Observable<Task[]> {
-  let params = new HttpParams();
-
-  if (search) {
-    params = params.set('search', search);
+  public taskBehaviorSubject: BehaviorSubject<string>;
+  public task$: Observable<string>;
+  constructor(private http: HttpClient) {
+    this.taskBehaviorSubject = new BehaviorSubject<string>('');
+    this.task$ = this.taskBehaviorSubject.asObservable();
   }
 
-  if (sort) {
-    params = params.set('sort', sort);
+
+  getTasks({ search, sort, group }: IGetTaskFiltersParams): Observable<Task[]> {
+    let params = new HttpParams();
+
+    if (search) {
+      params = params.set('search', search);
+    }
+
+    if (sort) {
+      params = params.set('sort', sort);
+    }
+
+    if (group) {
+      params = params.set('group', group);
+    }
+
+    console.log('Parámetros:', search, sort, group, params);
+
+    return this.http.get<Task[]>(`${this.url}/tasks`, { params });
   }
-
-  if (group) {
-    params = params.set('group', group);
-  }
-
-  console.log('Parámetros:', search, sort, group, params);
-
-  return this.http.get<Task[]>(`${this.url}/tasks`, { params });
-}
 
   getTask(id: string): Observable<Task> {
     return this.http.get<Task>(`${this.url}/tasks/${id}`);

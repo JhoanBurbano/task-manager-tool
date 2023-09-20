@@ -14,7 +14,11 @@ const routes: Routes = [
       import('./components/task-list/task-list.component').then((m) => m.TaskListComponent),
   },
   {
-    path: "**",
+    path: Paths.edit_task,
+    loadComponent: () => import('./components/edit-task/edit-task.component').then((m) => m.EditTaskComponent),
+  },
+  {
+    path: '**',
     redirectTo: Paths.list_tasks,
   },
 ];

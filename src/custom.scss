@@ -109,6 +109,26 @@
     text-shadow: 0 0 10px var(--shadow-500) !important;
 }
 
+.jb-custom-grad {
+  &-red {
+    transition: background 0.5s ease-in-out;
+    background: #00000000 !important;
+    &:hover {
+      background:  #ff000055 !important;
+
+    }
+  }
+  &-yellow {
+    transition: background 0.5s ease-in-out;
+    background: #00000000 !important;
+    &:hover {
+      background:  #ffd90055 !important;
+
+    }
+  }
+
+}
+
 
 // Animations
 

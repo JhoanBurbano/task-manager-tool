@@ -8,3 +8,9 @@ export enum TaskPriority {
   MEDIUM = 'medium',
   HIGH = 'high',
 }
+
+export enum ActionsTask {
+  EDIT = 'edit',
+  DELETE = 'delete',
+  ARCHIVE = 'archive',
+}

@@ -10,6 +10,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { TaskService } from 'src/app/services/task.service';
 import { RedirectsService } from 'src/app/services/redirects.service';
 import { Paths } from 'src/app/enums';
+import { TaskFormGroupTemplate, priorityOptions, taskStateOptions } from '../constants/common.constants';
 
 @Component({
   selector: 'jb-create-note',
@@ -33,49 +34,15 @@ export class CreateNoteComponent implements OnDestroy {
     private readonly taskService: TaskService,
     private readonly redirectService: RedirectsService,
   ) {
-    this.priorityOptions = [
-      {
-        label: 'Low',
-        value: TaskPriority.LOW,
-      },
-      {
-        label: 'Medium',
-        value: TaskPriority.MEDIUM,
-      },
-      {
-        label: 'High',
-        value: TaskPriority.HIGH,
-      },
-    ];
-    this.taskStateOptions = [
-      {
-        label: TaskStatus.PENDING,
-        value: TaskStatus.PENDING,
-      },
-      {
-        label: TaskStatus.COMPLETED,
-        value: TaskStatus.COMPLETED,
-      },
-    ];
-    this.taskState = 'pending';
+    this.priorityOptions = priorityOptions
+    this.taskStateOptions = taskStateOptions
+    this.taskState = TaskStatus.PENDING;
     this.loading = false;
-    this.taskFormGroup = this.fb.group({
-      id: ['', Validators.required],
-      title: ['', Validators.required],
-      description: [''],
-      creationDate: [new Date()],
-      updateDate: [new Date()],
-      dueDate: [null],
-      priority: [TaskPriority.LOW, Validators.min(0)],
-      completed: [TaskStatus.PENDING],
-      tags: [[]],
-      archived: [false],
-    });
+    this.taskFormGroup = this.fb.group(TaskFormGroupTemplate);
   }
 
   onSubmit(): void {
     this.loading = true;
-    console.log('this. :>> ', this.taskFormGroup.value);
     this.taskService
       .createTask(this.taskFormGroup.value)
       .pipe(takeUntil(this.destroy$))
@@ -94,14 +61,16 @@ export class CreateNoteComponent implements OnDestroy {
     this.taskFormGroup.get('priority')?.setValue(event.value?.code);
   }
 
-  onTitleChange() {console.log('"object" :>> ', "object");
-    const value = this.taskFormGroup.get('title')?.value
+  onTitleChange() {
+    const value = this.taskFormGroup.get('title')?.value;
     this.taskFormGroup.get('title')?.setValue((value as string)?.toLowerCase());
   }
 
   onChipAdd(event: any) {
     event.value = event.value.toLowerCase();
-    this.taskFormGroup.get('tags')?.setValue([...this.taskFormGroup.get('tags')?.value?.map((x: string) => x.toLowerCase())]);
+    this.taskFormGroup
+      .get('tags')
+      ?.setValue([...this.taskFormGroup.get('tags')?.value?.map((x: string) => x.toLowerCase())]);
   }
 
   ngOnDestroy(): void {

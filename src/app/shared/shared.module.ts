@@ -16,6 +16,7 @@ import { TaskComponent } from '../components/task/task.component';
   declarations: [PageTemplateComponent],
   exports: [
     PageTemplateComponent,
+    ReactiveFormsModule,
     DropdownModule,
     InputTextModule,
     InputTextareaModule,
