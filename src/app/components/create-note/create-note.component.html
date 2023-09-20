@@ -8,6 +8,7 @@
         aria-describedby="username-help"
         placeholder="Type a title"
         formControlName="title"
+        (keyup)="onTitleChange()"
       />
       <!-- <small class="font-light" id="username-help">Enter your username to reset your password.</small> -->
     </div>
@@ -33,7 +34,7 @@
       </div>
       <div class="flex flex-column gap-2">
         <label htmlFor="username">Priority</label>
-        <p-dropdown [options]="priorityOptions" optionLabel="label"></p-dropdown>
+        <p-dropdown [options]="priorityOptions" optionLabel="label" formControlName="priority" placeholder="Select a Priority"></p-dropdown>
         <!-- <small class="font-light" id="username-help">Enter your username to reset your password.</small> -->
       </div>
     </div>
@@ -51,11 +52,12 @@
       <label htmlFor="username">Tags</label>
       <p-chips
         formControlName="tags"
-        [max]="4"
+        [max]="3"
         [allowDuplicate]="false"
         [separator]="','"
         inputStyleClass="text-white"
         styleClass="jb-custom-input-transparent"
+        (onAdd)="onChipAdd($event)"
       ></p-chips>
       <!-- <small class="font-light" id="username-help">Enter your username to reset your password.</small> -->
     </div>
@@ -68,7 +70,7 @@
       [title]="getControlValue('title')"
       [description]="getControlValue('description')"
       [dueDate]="getControlValue('dueDate')"
-      [priority]="getControlValue('priority')"
+      [priority]="getControlValue('priority')?.value"
       [completed]="getControlValue('completed')"
       [tags]="getControlValue('tags')"
       [archived]="getControlValue('archived')"

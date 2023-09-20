@@ -1,12 +1,19 @@
 <p-card
-  [header]="title || '[Card Title]'"
-  styleClass="text-white flex flex-column justify-content-center gap-2 jb-custom-bg-{{
+  styleClass="text-white flex flex-column justify-content-center gap-2 jb-custom-text-{{
     completed
   }} jb-custom-shadow-{{ completed }} jb-custom-size-{{ size }}"
-  [subheader]="priority && date ? priority + ' || ' + date : '[Priority] || [Date]'"
   [style]="{ width: '360px', background: 'var(--color-primary)', minHeight: '400px'}"
 >
-  <ng-template pTemplate="header"> </ng-template>
+  <ng-template pTemplate="title">
+    <p  [style]="{ wordBreak: 'break-word', hyphens: 'auto' }">
+      {{capitalizeAll(title) || '[Card Title]'}}
+    </p>
+  </ng-template>
+  <ng-template pTemplate="subtitle">
+    <span class="flex ">
+      <span class="mr-1 border-round px-2 text-gray-900 jb-custom-bg-{{completed}}-{{priority.toLowerCase() || 'none'}}">{{priority || '[Priority] '}}</span> <p>||</p> <p class="ml-1 border-round px-2 bg-gray-300 text-gray-900">{{date || '[Date]'}}</p>
+    </span>
+  </ng-template>
   <p [style]="{ minHeight: '120px', wordBreak: 'break-word', hyphens: 'auto' }">
     {{ description || '[Card Description]' }}
   </p>

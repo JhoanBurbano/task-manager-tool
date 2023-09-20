@@ -13,6 +13,10 @@ const routes: Routes = [
     loadComponent: () =>
       import('./components/task-list/task-list.component').then((m) => m.TaskListComponent),
   },
+  {
+    path: "**",
+    redirectTo: Paths.list_tasks,
+  },
 ];
 
 @NgModule({

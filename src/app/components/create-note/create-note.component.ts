@@ -71,7 +71,6 @@ export class CreateNoteComponent implements OnDestroy {
       tags: [[]],
       archived: [false],
     });
-    console.log('this. :>> ', this.taskFormGroup.value);
   }
 
   onSubmit(): void {
@@ -93,6 +92,16 @@ export class CreateNoteComponent implements OnDestroy {
 
   onPrioritySelected(event: DropdownChangeEvent) {
     this.taskFormGroup.get('priority')?.setValue(event.value?.code);
+  }
+
+  onTitleChange() {console.log('"object" :>> ', "object");
+    const value = this.taskFormGroup.get('title')?.value
+    this.taskFormGroup.get('title')?.setValue((value as string)?.toLowerCase());
+  }
+
+  onChipAdd(event: any) {
+    event.value = event.value.toLowerCase();
+    this.taskFormGroup.get('tags')?.setValue([...this.taskFormGroup.get('tags')?.value?.map((x: string) => x.toLowerCase())]);
   }
 
   ngOnDestroy(): void {

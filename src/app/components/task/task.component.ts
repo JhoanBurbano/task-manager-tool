@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { CardModule } from 'primeng/card';
 import { ChipModule } from 'primeng/chip';
 import * as moment from 'moment';
+import { capitalizeAll } from 'src/utils/common.utils';
 
 @Component({
   selector: 'jb-task',
@@ -17,10 +18,14 @@ export class TaskComponent {
   @Input('dueDate') set setDueDate(value: Date) {
     this.date = value ? moment(value).format('DD MMM YYYY') : '';
   }
-  @Input() date!: string;
-  @Input() priority!: string;
+  public date!: string;
+  @Input('priority') set setPriority( value: string){
+    this.priority = value ? capitalizeAll(value) : '';
+  }
+  public priority!: string;
   @Input() completed!: string;
   @Input() tags!: Array<string>;
   @Input() archived!: boolean;
   @Input() size!: string;
+  public capitalizeAll = capitalizeAll
 }
