@@ -7,4 +7,9 @@ import { Component, Input } from '@angular/core';
 export class PageTemplateComponent {
   @Input() title!: string;
   @Input() leftSize!: string;
+  public isClose: boolean = false;
+
+  public toggleClose(): void {
+    this.isClose = !this.isClose;
+  }
 }
