@@ -15,7 +15,7 @@ import { TaskComponent } from '../components/task/task.component';
 import { LoaderComponent } from './loader/loader.component';
 
 @NgModule({
-  declarations: [PageTemplateComponent, LoaderComponent],
+  declarations: [ PageTemplateComponent, LoaderComponent ],
   exports: [
     PageTemplateComponent,
     ReactiveFormsModule,

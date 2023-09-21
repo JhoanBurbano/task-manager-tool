@@ -9,8 +9,8 @@ describe('TaskService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [TaskService],
+      imports: [ HttpClientTestingModule ],
+      providers: [ TaskService ],
     });
     service = TestBed.inject(TaskService);
     httpTestingController = TestBed.inject(HttpTestingController);

@@ -9,6 +9,6 @@ export class RedirectsService {
   constructor(private readonly router: Router) {}
 
   public redirectTo(page: Paths): void {
-    this.router.navigate([page]);
+    this.router.navigate([ page ]);
   }
 }

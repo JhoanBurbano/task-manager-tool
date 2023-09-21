@@ -8,7 +8,7 @@ describe('EditTaskComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [EditTaskComponent]
+      imports: [ EditTaskComponent ],
     });
     fixture = TestBed.createComponent(EditTaskComponent);
     component = fixture.componentInstance;

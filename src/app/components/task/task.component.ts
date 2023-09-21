@@ -10,9 +10,9 @@ import { ActionsTask } from 'src/app/enums/common.enum';
 @Component({
   selector: 'jb-task',
   standalone: true,
-  imports: [CommonModule, CardModule, ChipModule, ButtonModule],
+  imports: [ CommonModule, CardModule, ChipModule, ButtonModule ],
   templateUrl: './task.component.html',
-  styleUrls: ['./task.component.scss'],
+  styleUrls: [ './task.component.scss' ],
 })
 export class TaskComponent {
   @Input() title!: string;

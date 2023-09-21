@@ -10,20 +10,21 @@ import { TaskStatus } from 'src/app/enums/common.enum';
 import { DropdownChangeEvent } from 'primeng/dropdown';
 import { Paths } from 'src/app/enums/paths.enum';
 import { RedirectsService } from 'src/app/services/redirects.service';
+import { ChipsAddEvent } from 'primeng/chips';
 
 @Component({
   selector: 'jb-edit-task',
   standalone: true,
-  imports: [CommonModule, SharedModule],
+  imports: [ CommonModule, SharedModule ],
   templateUrl: './edit-task.component.html',
-  styleUrls: ['./edit-task.component.scss']
+  styleUrls: [ './edit-task.component.scss' ],
 })
 export class EditTaskComponent implements OnInit, OnDestroy {
   public taskFormGroup: FormGroup;
   public loading: boolean;
   public TaskStatus = TaskStatus;
   public priorityOptions = priorityOptions;
-  public taskStateOptions = taskStateOptions
+  public taskStateOptions = taskStateOptions;
   private task!: Task;
 
   private destroy$ = new Subject<void>();
@@ -35,14 +36,14 @@ export class EditTaskComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.taskService.task$
-    .pipe(takeUntil(this.destroy$))
-    .subscribe((taskId: string) => {
-      if(!taskId) {
-        this.redirectService.redirectTo(Paths.list_tasks);
-        this.taskService.onErrorAlert('Task not found')
-      }
-      this.getTaskById(taskId);
-    })
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((taskId: string) => {
+        if(!taskId) {
+          this.redirectService.redirectTo(Paths.list_tasks);
+          this.taskService.onErrorAlert('Task not found');
+        }
+        this.getTaskById(taskId);
+      });
   }
 
   private getTaskById(id: string): void {
@@ -61,14 +62,14 @@ export class EditTaskComponent implements OnInit, OnDestroy {
 
   onSubmit(): void {
     this.loading = true;
-    const body = this.taskFormGroup.value
+    const body = this.taskFormGroup.value;
     if(typeof body.priority !== 'string') body.priority = body.priority.value;
     if(typeof body.completed !== 'string') body.completed = body.completed.value;
     this.taskService
       .updateTask(this.task.id , body as Task)
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
-        this.taskService.onSuccessAlert('Task updated successfully')
+        this.taskService.onSuccessAlert('Task updated successfully');
         this.loading = false;
         this.redirectService.redirectTo(Paths.list_tasks);
       });
@@ -88,11 +89,13 @@ export class EditTaskComponent implements OnInit, OnDestroy {
     this.taskFormGroup.get('title')?.setValue((value as string)?.toLowerCase());
   }
 
-  onChipAdd(event: any) {
+  onChipAdd(event: ChipsAddEvent) {
     event.value = event.value.toLowerCase();
-    this.taskFormGroup
-      .get('tags')
-      ?.setValue([...this.taskFormGroup.get('tags')?.value?.map((x: string) => x.toLowerCase())]);
+    const tagControl = this.taskFormGroup.get('tags');
+    if(tagControl){
+      tagControl
+        .setValue([ ...this.taskFormGroup.get('tags')?.value?.map((x: string) => x.toLowerCase()) ]);
+    }
   }
 
 

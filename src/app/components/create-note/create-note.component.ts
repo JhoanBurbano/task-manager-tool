@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy } from '@angular/core';
 import { DropdownChangeEvent } from 'primeng/dropdown';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ISelect, IToggle } from 'src/app/interfaces';
 import { TaskPriority, TaskStatus } from 'src/app/enums/common.enum';
@@ -11,13 +11,14 @@ import { TaskService } from 'src/app/services/task.service';
 import { RedirectsService } from 'src/app/services/redirects.service';
 import { Paths } from 'src/app/enums';
 import { TaskFormGroupTemplate, priorityOptions, taskStateOptions } from '../constants/common.constants';
+import { ChipsAddEvent } from 'primeng/chips';
 
 @Component({
   selector: 'jb-create-note',
   standalone: true,
   templateUrl: './create-note.component.html',
-  styleUrls: ['./create-note.component.scss'],
-  imports: [CommonModule, ReactiveFormsModule, SharedModule],
+  styleUrls: [ './create-note.component.scss' ],
+  imports: [ CommonModule, ReactiveFormsModule, SharedModule ],
 })
 export class CreateNoteComponent implements OnDestroy {
   public priorityOptions: ISelect<TaskPriority>[];
@@ -34,8 +35,8 @@ export class CreateNoteComponent implements OnDestroy {
     private readonly taskService: TaskService,
     private readonly redirectService: RedirectsService,
   ) {
-    this.priorityOptions = priorityOptions
-    this.taskStateOptions = taskStateOptions
+    this.priorityOptions = priorityOptions;
+    this.taskStateOptions = taskStateOptions;
     this.taskState = TaskStatus.PENDING;
     this.loading = false;
     this.taskFormGroup = this.fb.group(TaskFormGroupTemplate);
@@ -48,7 +49,7 @@ export class CreateNoteComponent implements OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
         this.loading = false;
-        this.taskService.onSuccessAlert('Task created successfully')
+        this.taskService.onSuccessAlert('Task created successfully');
         this.redirectService.redirectTo(Paths.list_tasks);
       });
   }
@@ -66,11 +67,13 @@ export class CreateNoteComponent implements OnDestroy {
     this.taskFormGroup.get('title')?.setValue((value as string)?.toLowerCase());
   }
 
-  onChipAdd(event: any) {
+  onChipAdd(event: ChipsAddEvent) {
     event.value = event.value.toLowerCase();
-    this.taskFormGroup
-      .get('tags')
-      ?.setValue([...this.taskFormGroup.get('tags')?.value?.map((x: string) => x.toLowerCase())]);
+    const tagControl = this.taskFormGroup.get('tags');
+    if(tagControl){
+      tagControl
+        .setValue([ ...this.taskFormGroup.get('tags')?.value?.map((x: string) => x.toLowerCase()) ]);
+    }
   }
 
   ngOnDestroy(): void {

@@ -10,7 +10,7 @@ import { SharedModule } from './shared/shared.module';
 import { MessageService } from 'primeng/api';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [ AppComponent ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -19,7 +19,7 @@ import { MessageService } from 'primeng/api';
     HttpClientModule,
     SharedModule,
   ],
-  providers: [MessageService],
-  bootstrap: [AppComponent],
+  providers: [ MessageService ],
+  bootstrap: [ AppComponent ],
 })
 export class AppModule {}

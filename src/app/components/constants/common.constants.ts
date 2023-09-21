@@ -34,14 +34,14 @@ export const taskStateOptions = [
 ];
 
 export const TaskFormGroupTemplate = {
-  id: ['', Validators.required],
-  title: ['', Validators.required],
-  description: [''],
-  creationDate: [new Date()],
-  updateDate: [new Date()],
-  dueDate: [null],
-  priority: [TaskPriority.LOW, Validators.min(0)],
-  completed: [TaskStatus.PENDING],
-  tags: [[]],
-  archived: [false],
-}
+  id: [ '', Validators.required ],
+  title: [ '', Validators.required ],
+  description: [ '' ],
+  creationDate: [ new Date() ],
+  updateDate: [ new Date() ],
+  dueDate: [ null ],
+  priority: [ TaskPriority.LOW, Validators.min(0) ],
+  completed: [ TaskStatus.PENDING ],
+  tags: [ [] ],
+  archived: [ false ],
+};

@@ -8,9 +8,9 @@ import { SharedModule } from 'src/app/shared/shared.module';
   selector: 'jb-navbar',
   standalone: true,
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss'],
-  imports: [CommonModule, RouterModule, SharedModule],
-  providers: [NavbarService],
+  styleUrls: [ './navbar.component.scss' ],
+  imports: [ CommonModule, RouterModule, SharedModule ],
+  providers: [ NavbarService ],
 })
 export class NavbarComponent {
   constructor(public navbarService: NavbarService) {}

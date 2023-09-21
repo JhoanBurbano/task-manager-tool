@@ -16,9 +16,9 @@ import { Paths } from 'src/app/enums';
 @Component({
   selector: 'jb-task-list',
   standalone: true,
-  imports: [CommonModule, SharedModule],
+  imports: [ CommonModule, SharedModule ],
   templateUrl: './task-list.component.html',
-  styleUrls: ['./task-list.component.scss'],
+  styleUrls: [ './task-list.component.scss' ],
 })
 export class TaskListComponent implements OnInit, OnDestroy {
   public sortByOptions: IGroupSelect<string>[];
@@ -67,45 +67,45 @@ export class TaskListComponent implements OnInit, OnDestroy {
       },
     ];
     this.filterByOptions = [
-        {
-          label: capitalize('Status'),
-          value: KeysTask.Completed,
-          items: [
-            {
-              label: capitalize(TaskStatus.PENDING),
-              value: `${KeysTask.Completed}:${TaskStatus.PENDING}`,
-            },
-            {
-              label: capitalize(TaskStatus.COMPLETED),
-              value:  `${KeysTask.Completed}:${TaskStatus.COMPLETED}`,
-            },
-          ],
-        },
-        {
-          label: capitalize(KeysTask.Priority),
-          value: KeysTask.Priority,
-          items: [
-            {
-              label: capitalize(TaskPriority.LOW),
-              value:`${KeysTask.Priority}:${TaskPriority.LOW}`,
-            },
-            {
-              label: capitalize(TaskPriority.MEDIUM),
-              value:`${KeysTask.Priority}:${TaskPriority.MEDIUM}`,
-            },
-            {
-              label: capitalize(TaskPriority.HIGH),
-              value: `${KeysTask.Priority}:${TaskPriority.HIGH}`,
-            },
-          ],
-        },
+      {
+        label: capitalize('Status'),
+        value: KeysTask.Completed,
+        items: [
+          {
+            label: capitalize(TaskStatus.PENDING),
+            value: `${KeysTask.Completed}:${TaskStatus.PENDING}`,
+          },
+          {
+            label: capitalize(TaskStatus.COMPLETED),
+            value:  `${KeysTask.Completed}:${TaskStatus.COMPLETED}`,
+          },
+        ],
+      },
+      {
+        label: capitalize(KeysTask.Priority),
+        value: KeysTask.Priority,
+        items: [
+          {
+            label: capitalize(TaskPriority.LOW),
+            value:`${KeysTask.Priority}:${TaskPriority.LOW}`,
+          },
+          {
+            label: capitalize(TaskPriority.MEDIUM),
+            value:`${KeysTask.Priority}:${TaskPriority.MEDIUM}`,
+          },
+          {
+            label: capitalize(TaskPriority.HIGH),
+            value: `${KeysTask.Priority}:${TaskPriority.HIGH}`,
+          },
+        ],
+      },
     ];
     this.taskState = 'pending';
     this.loading = false;
     this.taskFormGroup = this.fb.group({
-      search: [null],
-      sortBy: [null],
-      filterBy: [null],
+      search: [ null ],
+      sortBy: [ null ],
+      filterBy: [ null ],
     });
     this.tasks = [];
   }
@@ -162,12 +162,12 @@ export class TaskListComponent implements OnInit, OnDestroy {
 
   onAction(action: ActionsTask, taskId: string) {
     switch(action){
-      case ActionsTask.EDIT:
-        return this.onEdit(taskId);
-      case ActionsTask.DELETE:
-        return this.onDelete(taskId);
-      default:
-        return;
+    case ActionsTask.EDIT:
+      return this.onEdit(taskId);
+    case ActionsTask.DELETE:
+      return this.onDelete(taskId);
+    default:
+      return;
     }
   }
 
