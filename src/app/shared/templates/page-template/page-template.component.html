@@ -3,7 +3,7 @@
     <aside
       class="task-template__container-tool-form bg-gray-100 {{
         leftSize
-      }} transition-transform transition-duration-300 transition-ease-in"
+      }} transition-transform transition-duration-300 transition-ease-in z-2"
       [class.hide]="isClose"
     >
       <h1
@@ -13,15 +13,15 @@
       </h1>
       <ng-content select="[leftContent]"></ng-content>
     </aside>
-    <aside class="flex flex-1 h-full overflow-auto">
+    <aside class="overflow-auto flex flex-1 h-full">
       <ng-content select="[rightContent]"></ng-content>
     </aside>
     <p-button
-      icon="pi pi-{{ isClose ? 'check' : 'times' }}"
+      icon="pi pi-{{ isClose ? 'align-center' : 'times' }}"
       (click)="toggleClose()"
       styleClass="p-button-rounded p-button-info fixed"
-      class="task-template__container-tool-toggle"
-      [style]="{ bottom: '75px', right: '5px', zIndex: 300 }"
+      class="task-template__container-tool-toggle z-3"
+      [style]="{ bottom: '75px', right: '5px'}"
     ></p-button>
   </main>
 </section>

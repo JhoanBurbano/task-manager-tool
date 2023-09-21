@@ -52,7 +52,7 @@
       </div>
     </div>
     <div class="flex flex-column gap-2 mt-4">
-      <p-button label="Submit" [loading]="loading" type="submit"></p-button>
+      <p-button label="Submit" [loading]="!!(redirectsService.loading$ | async)" type="submit"></p-button>
     </div>
   </form>
   <span class="jb-custom-card-list w-full mx-4 mt-4" rightContent>

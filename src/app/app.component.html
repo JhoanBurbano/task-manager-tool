@@ -1,4 +1,5 @@
 <p-toast ></p-toast>
+<jb-loader *ngIf="redirectsService.loading$ | async"></jb-loader>
 <div class="app-viewport">
   <jb-navbar></jb-navbar>
   <div class="app-viewport_template">

@@ -24,7 +24,6 @@ export class TaskListComponent implements OnInit, OnDestroy {
   public sortByOptions: IGroupSelect<string>[];
   public filterByOptions: IGroupSelect<string>[];
   public taskState: string;
-  public loading: boolean;
   public taskFormGroup: FormGroup;
   public TaskStatus = TaskStatus;
   public tasks: Task[];
@@ -34,8 +33,9 @@ export class TaskListComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private readonly taskService: TaskService,
-    private readonly redirectsService: RedirectsService,
+    public readonly redirectsService: RedirectsService,
   ) {
+    this.redirectsService.setLoading(true)
     this.sortByOptions = [
       {
         label: capitalize(KeysTask.Priority),
@@ -101,7 +101,6 @@ export class TaskListComponent implements OnInit, OnDestroy {
       },
     ];
     this.taskState = 'pending';
-    this.loading = false;
     this.taskFormGroup = this.fb.group({
       search: [ null ],
       sortBy: [ null ],
@@ -120,21 +119,18 @@ export class TaskListComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe((tasks) => {
         this.tasks = tasks;
+        this.redirectsService.setLoading(false) 
       });
   }
 
   onSubmit(): void {
-    this.loading = true;
-    console.log('object :>> ', this.taskFormGroup.value);
+    this.redirectsService.setLoading(true)
     const params: IGetTaskFiltersParams = {
       search: this.getControlValue('search'),
       sort: this.getControlValue('sortBy'),
       filter: this.getControlValue('filterBy')?.value,
     };
     this.getTasks(params);
-    setTimeout(() => {
-      this.loading = false;
-    }, 2000);
   }
 
   changeFilters(key: string) {

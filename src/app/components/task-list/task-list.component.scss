@@ -3,4 +3,8 @@
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 1rem;
     justify-items: center;
+    @media screen and (max-width: 768px) {
+        margin-bottom: 70px !important;
+        height: 100vh !important;
+    }
 }

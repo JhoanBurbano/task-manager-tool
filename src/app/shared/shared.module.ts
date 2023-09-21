@@ -18,6 +18,7 @@ import { LoaderComponent } from './loader/loader.component';
   declarations: [ PageTemplateComponent, LoaderComponent ],
   exports: [
     PageTemplateComponent,
+    LoaderComponent,
     ReactiveFormsModule,
     DropdownModule,
     InputTextModule,
