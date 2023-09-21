@@ -12,9 +12,10 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { TreeSelectModule } from 'primeng/treeselect';
 import { ToastModule } from 'primeng/toast';
 import { TaskComponent } from '../components/task/task.component';
+import { LoaderComponent } from './loader/loader.component';
 
 @NgModule({
-  declarations: [PageTemplateComponent],
+  declarations: [PageTemplateComponent, LoaderComponent],
   exports: [
     PageTemplateComponent,
     ReactiveFormsModule,
