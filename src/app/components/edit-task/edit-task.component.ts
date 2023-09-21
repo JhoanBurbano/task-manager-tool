@@ -37,7 +37,10 @@ export class EditTaskComponent implements OnInit, OnDestroy {
     this.taskService.task$
     .pipe(takeUntil(this.destroy$))
     .subscribe((taskId: string) => {
-      if(!taskId) return this.redirectService.redirectTo(Paths.list_tasks);
+      if(!taskId) {
+        this.redirectService.redirectTo(Paths.list_tasks);
+        this.taskService.onErrorAlert('Task not found')
+      }
       this.getTaskById(taskId);
     })
   }
@@ -64,8 +67,8 @@ export class EditTaskComponent implements OnInit, OnDestroy {
     this.taskService
       .updateTask(this.task.id , body as Task)
       .pipe(takeUntil(this.destroy$))
-      .subscribe((taskId) => {
-        console.log('taskId :>> ', taskId);
+      .subscribe(() => {
+        this.taskService.onSuccessAlert('Task updated successfully')
         this.loading = false;
         this.redirectService.redirectTo(Paths.list_tasks);
       });

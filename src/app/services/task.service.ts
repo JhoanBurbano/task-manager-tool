@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { IGetTaskFiltersParams, Task } from '../interfaces';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { MessageService } from 'primeng/api';
 
 @Injectable({
   providedIn: 'root',
@@ -11,13 +12,26 @@ export class TaskService {
   private url = environment.apiUrl;
   public taskBehaviorSubject: BehaviorSubject<string>;
   public task$: Observable<string>;
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private readonly messageService: MessageService) {
     this.taskBehaviorSubject = new BehaviorSubject<string>('');
     this.task$ = this.taskBehaviorSubject.asObservable();
   }
 
 
-  getTasks({ search, sort, group }: IGetTaskFiltersParams): Observable<Task[]> {
+  onErrorAlert(message: string) {
+    this.messageService.add({ severity: 'error', summary: 'Error', detail: message });
+  }
+
+  onSuccessAlert(message: string) {
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: message });
+  }
+
+  onInfoAlert(message: string) {
+    this.messageService.add({ severity: 'info', summary: 'Info', detail: message });
+  }
+
+
+  getTasks({ search, sort, filter }: IGetTaskFiltersParams): Observable<Task[]> {
     let params = new HttpParams();
 
     if (search) {
@@ -28,11 +42,11 @@ export class TaskService {
       params = params.set('sort', sort);
     }
 
-    if (group) {
-      params = params.set('group', group);
+    if (filter) {
+      params = params.set('filter', filter);
     }
 
-    console.log('Parámetros:', search, sort, group, params);
+    console.log('params :>> ', params);
 
     return this.http.get<Task[]>(`${this.url}/tasks`, { params });
   }

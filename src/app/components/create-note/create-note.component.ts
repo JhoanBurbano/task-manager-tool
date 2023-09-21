@@ -46,9 +46,9 @@ export class CreateNoteComponent implements OnDestroy {
     this.taskService
       .createTask(this.taskFormGroup.value)
       .pipe(takeUntil(this.destroy$))
-      .subscribe((taskId) => {
-        console.log('taskId :>> ', taskId);
+      .subscribe(() => {
         this.loading = false;
+        this.taskService.onSuccessAlert('Task created successfully')
         this.redirectService.redirectTo(Paths.list_tasks);
       });
   }

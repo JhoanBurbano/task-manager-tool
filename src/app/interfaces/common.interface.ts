@@ -17,5 +17,5 @@ export interface IToggle<T> {
 export interface IGetTaskFiltersParams {
   search: string;
   sort: string;
-  group: string;
+  filter: string;
 }

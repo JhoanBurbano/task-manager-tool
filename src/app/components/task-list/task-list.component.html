@@ -14,8 +14,7 @@
     </div>
     <div class="flex gap-2">
       <div class="flex flex-column gap-2">
-        <label htmlFor="username">Order by</label>
-        <!-- <p-dropdown [options]="priorityOptions" optionLabel="name"></p-dropdown> -->
+        <label htmlFor="order">Order by</label>
         <p-dropdown
           [options]="sortByOptions"
           formControlName="sortBy"
@@ -33,15 +32,21 @@
         <!-- <small class="font-light" id="username-help">Enter your username to reset your password.</small> -->
       </div>
       <div class="flex flex-column gap-2">
-        <label htmlFor="username">Group by</label>
+        <label htmlFor="filter">Filter by</label>
         <p-dropdown
-          [options]="groupByOptions"
-          formControlName="groupBy"
+          [options]="filterByOptions"
+          formControlName="filterBy"
+          [group]="true"
           optionLabel="label"
           [showClear]="true"
-          placeholder="GroupBy"
-          (ngModelChange)="changeFilters('group')"
+          placeholder="Filter By"
+          (ngModelChange)="changeFilters('filter')"
         >
+        <ng-template let-group pTemplate="group">
+          <div class="flex align-items-center">
+            <span>{{ group.label }}</span>
+          </div>
+        </ng-template>
         </p-dropdown>
         <!-- <small class="font-light" id="username-help">Enter your username to reset your password.</small> -->
       </div>
@@ -51,6 +56,7 @@
     </div>
   </form>
   <span class="jb-custom-card-list w-full mx-4 mt-4" rightContent>
+    <h3 *ngIf="!tasks.length" class="text-center w-full" [style]="{gridColumn: '1 / span 10'}">Tasks not found</h3>
     <jb-task
       *ngFor="let task of tasks"
       [title]="task.title"

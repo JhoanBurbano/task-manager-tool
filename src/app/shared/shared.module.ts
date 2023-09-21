@@ -10,6 +10,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { TreeSelectModule } from 'primeng/treeselect';
+import { ToastModule } from 'primeng/toast';
 import { TaskComponent } from '../components/task/task.component';
 
 @NgModule({
@@ -26,6 +27,7 @@ import { TaskComponent } from '../components/task/task.component';
     SelectButtonModule,
     ButtonModule,
     TreeSelectModule,
+    ToastModule,
   ],
   imports: [
     CommonModule,
@@ -38,6 +40,7 @@ import { TaskComponent } from '../components/task/task.component';
     TaskComponent,
     SelectButtonModule,
     ButtonModule,
+    ToastModule,
   ],
 })
 export class SharedModule {}

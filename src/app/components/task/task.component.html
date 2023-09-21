@@ -28,7 +28,7 @@
     <div class="card flex align-items-center gap-2 flex-wrap" *ngIf="tags.length">
       <p-chip *ngFor="let tag of tags" [label]="tag"></p-chip>
     </div>
-    <p-chip *ngIf="!tags.length" label="[tags here]"></p-chip>
+    <p-chip *ngIf="!tags.length && !showControls" label="[tags here]"></p-chip>
     <div
       class="flex justify-content-center align-content-center mt-2 absolute bottom-0 left-0 w-full jb-custom-grad-{{hover}} border-round-bottom"
       *ngIf="showControls"
