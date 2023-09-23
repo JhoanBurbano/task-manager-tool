@@ -12,6 +12,7 @@ import { RedirectsService } from 'src/app/services/redirects.service';
 import { Paths } from 'src/app/enums';
 import { TaskFormGroupTemplate, priorityOptions, taskStateOptions } from '../constants/common.constants';
 import { ChipsAddEvent } from 'primeng/chips';
+import { KeysTask } from 'src/app/enums/task.enum';
 
 @Component({
   selector: 'jb-create-note',
@@ -44,8 +45,10 @@ export class CreateNoteComponent implements OnDestroy {
 
   onSubmit(): void {
     this.loading = true;
+    const taskData = this.taskFormGroup.value;
+    taskData[KeysTask.Priority] = taskData[KeysTask.Priority].value;
     this.taskService
-      .createTask(this.taskFormGroup.value)
+      .createTask(taskData)
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
         this.loading = false;
